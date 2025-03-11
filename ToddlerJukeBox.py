@@ -9,7 +9,7 @@ dev = InputDevice('/dev/input/event18')
 #dev = InputDevice(sys.argv[1])
 #file_path = sys.argv[2]
 
-file = open('playlist.txt', mode='r')
+file = open('/home/trifu/Projekte/ToddlerJukeBox_Python Version/playlist.txt', mode='r')
 
 csv_reader = csv.reader(file, delimiter=';')
 
@@ -38,20 +38,20 @@ for event in dev.read_loop():
         if data.keystate == 1:
             
             if data.scancode == 28:
-                print(value)
+                print("POS 1 - "+ value)
                 
                 for row in csv_reader:
-                    print(row)
+                    print("POS 2 - "+row[0])
                     if row[0] == value:
-                        print(row[1])
+                        print("POS 3 - "+row[1])
                         if row[1] == "stop":
-                            print("STOP")
+                            print("POS 4 - STOP")
                             proc.kill()
                             pass
                             
                         proc = subprocess.Popen('cvlc -L -Z "/home/trifu/Musik/01 Venus.mp3"', shell=True)
 
-                print("ENDE")
+                print("-- ENDE --")
                 value=""
                 
             else:
