@@ -1,0 +1,11 @@
+[Unit]
+Description=VideoOnLAN Service
+Requires=sound.target
+
+[Service]
+ExecStart=vlc -I http --http-port 8090 --http-password password
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target
