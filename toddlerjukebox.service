@@ -1,0 +1,12 @@
+[Unit]
+Description=ToddlerJukeBox Service
+After=network.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/home/trifu/Projekte/.venv/bin/python /home/trifu/Projekte/workspace_ToddlerJukeBox/ToddlerJukeBox_Python/ToddlerJukeBox.py /dev/input/by-id/usb-16c0_27db-event-kbd <PLAY_LIST>
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target 
