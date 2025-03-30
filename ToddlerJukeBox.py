@@ -4,15 +4,11 @@ import csv
 import evdev
 import subprocess
 from evdev import InputDevice, categorize, ecodes
+from python_telnet_vlc import VLCTelnet
 
-dev = InputDevice('/dev/input/event18')
-#dev = InputDevice(sys.argv[1])
+#dev = InputDevice('/dev/input/event18')
+dev = InputDevice(sys.argv[1])
 #file_path = sys.argv[2]
-
-file = open('/home/trifu/Projekte/ToddlerJukeBox_Python Version/playlist.txt', mode='r')
-
-csv_reader = csv.reader(file, delimiter=';')
-
 
 # Modify as needed
 scancodes = {
@@ -28,6 +24,8 @@ scancodes = {
 #grab provides exclusive access to the device
 dev.grab()
 
+v = VLCTelnet("127.0.0.1", "password", 4212)
+
 value=""
 #loop
 for event in dev.read_loop():
@@ -40,16 +38,19 @@ for event in dev.read_loop():
             if data.scancode == 28:
                 print("POS 1 - "+ value)
                 
+                file = open('/home/trifu/Projekte/workspace_ToddlerJukeBox/playlist.txt', mode='r')
+                csv_reader = csv.reader(file, delimiter=';')
                 for row in csv_reader:
                     print("POS 2 - "+row[0])
                     if row[0] == value:
                         print("POS 3 - "+row[1])
                         if row[1] == "stop":
                             print("POS 4 - STOP")
-                            proc.kill()
+                            v.stop()
                             pass
                             
-                        proc = subprocess.Popen('cvlc -L -Z "/home/trifu/Musik/01 Venus.mp3"', shell=True)
+                        v.add(row[1])
+                        v.play()
 
                 print("-- ENDE --")
                 value=""
