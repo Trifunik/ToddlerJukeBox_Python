@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=root
 Group=root
-ExecStart=/home/trifu/Projekte/.venv/bin/python /home/trifu/Projekte/workspace_ToddlerJukeBox/ToddlerJukeBox_Python/ToddlerJukeBox.py /dev/input/by-id/usb-16c0_27db-event-kbd <PLAY_LIST>
+ExecStart=<PATH_TO_PYTHON>python <PATH_TO_SCRIPT>ToddlerJukeBox.py /dev/input/by-id/<READER> <PATH_TO_PLAYLIST>playlist.txt
 Restart=on-failure
 
 [Install]

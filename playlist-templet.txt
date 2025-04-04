@@ -1,0 +1,6 @@
+0006809545;"/home/user/musik/<FOLDER>/song.mp3;
+0006814660;"/home/user/music/<FOLDER>";
+0010921865;stop;
+0010905233;shutdown;
+0006804592;play;
+0010998438;pause;

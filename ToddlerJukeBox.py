@@ -4,6 +4,7 @@ import csv
 import subprocess
 from evdev import InputDevice, categorize, ecodes
 from python_telnet_vlc import VLCTelnet
+from time import sleep
 
 dev = InputDevice(sys.argv[1])
 file_path = sys.argv[2]
@@ -17,6 +18,13 @@ scancodes = {
     50: u'm', 51: u',', 52: u'.', 53: u'/', 54: u'RSHFT', 56: u'LALT', 57: u' ', 100: u'RALT'
 }
 dev.grab()
+
+# Check if VLC has started
+while True:
+    out = subprocess.check_output(["ps", "-eaf"])
+    if str(out).count("vlc") >= 1:
+        break
+    sleep(1)
 
 v = VLCTelnet("127.0.0.1", "password", 4212)
 
@@ -34,7 +42,7 @@ for event in dev.read_loop():
                 for row in csv_reader:
                     if row[0] == value:
                         if row[1] == "shutdown":
-                            proc = subprocess.Popen('shotdown now', shell=True)
+                            proc = subprocess.Popen('shutdown now', shell=True)
                         elif row[1] == "pause":
                             v.pause()
                         elif row[1] == "stop":
