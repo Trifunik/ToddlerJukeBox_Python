@@ -10,7 +10,7 @@ The script is started by a service in the background. The communication with VLC
 1. pip install python-telnet-vlc
 2. pip install evdev
 3. in toddlerjukebox.service set the path to ToddlerJukeBox.py, RFID reader and the playlist
-4. cp vlc.service /etc/systemd/user
+4. cp toddlerjukebox.service /etc/systemd/system
 5. enable and start the service
 
 ### VLC media player
